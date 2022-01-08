@@ -14,16 +14,12 @@ export interface IBody {
     signature: string,
 }
 
-export type TemplateType = {
-    id: string,
+export interface ITemplate {
+    id?: string,
     body: IBody,
     header: IHeader,
     title: string,
-};
-
-export type Template = {
-    getId: () => string,
-    getBody: () => IBody,
-    getHeader: () => IHeader,
-    getTitle: () => string
+}
+export interface IDomainError {
+    message: string
 }

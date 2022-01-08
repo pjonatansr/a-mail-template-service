@@ -55,7 +55,7 @@
       "groups": ["module", "/^@shared/", ["parent", "sibling", "index"]],
       "alphabetize": { "order": "asc", "ignoreCase": true }
     }
-  ]
+  ], "no-underscore-dangle":  "off"
   },
   "settings": {
     "import/resolver": {
