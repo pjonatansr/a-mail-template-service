@@ -6,42 +6,47 @@ import { Either, left, right } from 'src/shared/either';
 import { InvalidBodyError } from './errors/invalid-body';
 import { InvalidHeaderError } from './errors/invalid-header';
 import { InvalidTitleError } from './errors/invalid-title';
-
-type ErrorClasses = InvalidBodyError | InvalidHeaderError | InvalidTitleError;
+import { Body } from './template-body';
+import { Header } from './template-header';
 
 export class Template {
-    public readonly body: IBody;
+    public readonly body: Body;
 
-    public readonly header: IHeader;
+    public readonly header: Header;
 
     public readonly title: string;
 
-    private constructor({
-        body, header, title,
-    }: ITemplate) {
+    private constructor(
+        body: Body,
+        header: Header,
+        title: string,
+    ) {
         this.body = body;
         this.header = header;
         this.title = title;
         Object.freeze(this);
     }
 
-    static create(templateData: ITemplate):
+    static create({ body, header, title }: ITemplate):
     Either<InvalidBodyError | InvalidHeaderError | InvalidTitleError, Template> {
-        const bodyOrError:
-        Either<InvalidBodyError, IBody> = Body.create(templateData.body);
+        throw new Error('Method not fully implemented.');
 
-        const headerOrError:
-        Either<InvalidHeaderError, IHeader> = Header.create(templateData.header);
+        const bodyOrError: Either<InvalidBodyError, Body> = Body.create(body);
 
+        const headerOrError: Either<InvalidHeaderError, Header> = Header.create(header);
+
+        // TO-DO:
         if (bodyOrError.isLeft()) {
-            return left(bodyOrError.value);
+            // return left(bodyOrError.value);
         }
         if (headerOrError.isLeft()) {
-            return left(headerOrError.value);
+            // return left(headerOrError.value);
         }
-        const name: Name = bodyOrError.value;
-        const email: Email = headerOrError.value;
-        return right(new User(name, email));
+
+        // const newBody: IBody = bodyOrError.value;
+        // const newHeader: IHeader = headerOrError.value;
+        // return right(new Template({ body: newBody, header: newHeader, title }));
+        return null;
     }
 }
 
@@ -67,29 +72,7 @@ function validateHeader(template: ITemplate) {
 }
 
 const validateTemplate = (template: ITemplate): void => {
+    throw new Error('Method not fully implemented.');
     validateBody(template);
     validateHeader(template);
 };
-
-export default function buildMakeTemplate() {
-    return ({
-        id,
-        body,
-        header,
-        title,
-    }: ITemplate): Template => {
-        validateTemplate({
-            id,
-            body,
-            header,
-            title,
-        });
-
-        return Object.freeze({
-            getId: (): string => id,
-            getBody: (): IBody => body,
-            getHeader: (): IHeader => header,
-            getTitle: (): string => title,
-        });
-    };
-}
