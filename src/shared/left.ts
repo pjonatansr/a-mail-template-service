@@ -1,15 +1,7 @@
-import { Right } from './right';
-
-export class Left<L, A> {
-    readonly value: L;
-
-    isLeft: () => boolean;
-
-    isRight: () => boolean;
+export class Left<L> {
+    public readonly value: L;
 
     constructor(value: L) {
         this.value = value;
-        this.isLeft = (): this is Left<L, A> => true;
-        this.isRight = (): this is Right<L, A> => false;
     }
 }

@@ -37,6 +37,6 @@ export class Body implements IBody {
     }
 
     static validate(body: IBody): boolean {
-        throw new Error('Method not fully implemented.');
+        throw new Error('Method not implemented.');
     }
 }

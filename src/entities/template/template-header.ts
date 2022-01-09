@@ -32,9 +32,9 @@ export class Header implements IHeader {
 
     get value(): IHeader {
         return {
-            bcc: this.bcc,
-            cc: this.cc,
-            to: this.to,
+            bcc: this._bcc,
+            cc: this._cc,
+            to: this._to,
         };
     }
 
