@@ -1,8 +1,8 @@
 import { IDomainError } from 'src/common/types';
 
 export class InvalidBodyError extends Error implements IDomainError {
-    constructor() {
-        super('The body is invalid.');
+    constructor(message: string) {
+        super(message);
         this.name = 'InvalidBodyError';
     }
 }

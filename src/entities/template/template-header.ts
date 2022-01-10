@@ -1,6 +1,8 @@
-import { IGroup, IHeader } from 'src/common/types';
+import { Either, IGroup, IHeader } from 'src/common/types';
+import {
+    firstLeft, isLeft, Right,
+} from 'src/shared/either';
 
-import { Either, left, right } from '../../shared/either';
 import { InvalidHeaderError } from './errors/invalid-header';
 
 export class Header implements IHeader {
@@ -23,11 +25,14 @@ export class Header implements IHeader {
 
     public get to(): IGroup[] { return this._to; }
 
-    static create(header: IHeader): Either<InvalidHeaderError, Header> {
-        if (!Header.validate(header)) {
-            return left(new InvalidHeaderError());
+    static create(h: IHeader): Either<InvalidHeaderError, Header> {
+        const result = Header.validate(h);
+
+        if (isLeft(result)) {
+            return result;
         }
-        return right(new Header(header));
+
+        return Right(new Header(result.value));
     }
 
     get value(): IHeader {
@@ -38,20 +43,17 @@ export class Header implements IHeader {
         };
     }
 
-    static validate(header: IHeader): boolean {
-        throw new Error('Method not fully implemented.');
+    static validate(h: IHeader): Either<InvalidHeaderError, IHeader> {
+        const toLengthMustBePositive = ({ to }: IHeader) => to?.length > 0;
 
-        const tester = /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
-        if (!header) {
-            return false;
-        }
+        const predicates = [
+            toLengthMustBePositive,
+        ];
 
-        const { bcc, cc, to } = header;
+        const messages = [
+            'You must enter at least one destination address.',
+        ].map((message: string) => new InvalidHeaderError(message));
 
-        if (to.length < 1) {
-            return false;
-        }
-
-        return true;
+        return firstLeft<InvalidHeaderError, IHeader>(h, predicates, messages);
     }
 }

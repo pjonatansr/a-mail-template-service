@@ -1,10 +1,12 @@
 import {
+    Either,
     ITemplate,
 } from 'src/common/types';
-import { Either, left, right } from 'src/shared/either';
+import { firstLeft, isLeft, Right } from 'src/shared/either';
 
 import { InvalidBodyError } from './errors/invalid-body';
 import { InvalidHeaderError } from './errors/invalid-header';
+import { InvalidTitleError } from './errors/invalid-title';
 import { Body } from './template-body';
 import { Header } from './template-header';
 
@@ -26,45 +28,47 @@ export class Template {
         Object.freeze(this);
     }
 
-    static create(templateData: ITemplate):
-    Either<InvalidBodyError | InvalidHeaderError, Template> {
-        const bodyOrError: Either<InvalidBodyError, Body> = Body.create(templateData.body);
+    static create(template: ITemplate):
+    Either<InvalidBodyError | InvalidHeaderError | InvalidTitleError, Template> {
+        const result = Template.validate(template);
+
+        if (isLeft(result)) {
+            return result;
+        }
+
+        const bodyOrError:
+        Either<InvalidBodyError, Body> = Body.create(template.body);
+
+        if (isLeft(bodyOrError)) {
+            return bodyOrError;
+        }
+
         const headerOrError:
-        Either<InvalidHeaderError, Header> = Header.create(templateData.header);
+        Either<InvalidHeaderError, Header> = Header.create(template.header);
 
-        if (bodyOrError instanceof InvalidBodyError) {
-            return left(bodyOrError);
+        if (isLeft(headerOrError)) {
+            return headerOrError;
         }
 
-        if (headerOrError instanceof InvalidHeaderError) {
-            return left(headerOrError);
-        }
-
-        const newTemplate: {
-            title: string,
-            body: Body,
-            header: Header,
-        } = {
-            title: templateData.title,
-            body: undefined,
-            header: undefined,
-        };
-
-        const getFunctionByType = {
-            Body: (body: Body) => { newTemplate.body = body; },
-            Header: (header: Header) => { newTemplate.header = header; },
-        };
-
-        const setBody = getFunctionByType[typeof bodyOrError];
-        setBody(bodyOrError);
-
-        const setHeader = getFunctionByType[typeof headerOrError];
-        setHeader(bodyOrError);
-
-        return right(new Template(
-            newTemplate.body,
-            newTemplate.header,
-            newTemplate.title,
+        return Right<Template>(new Template(
+            bodyOrError.value,
+            headerOrError.value,
+            template.title,
         ));
+    }
+
+    static validate(template: ITemplate):
+    Either<InvalidTitleError, ITemplate> {
+        const titleLengthMustBePositive = ({ title }: ITemplate) => title?.length > 0;
+
+        const predicates = [
+            titleLengthMustBePositive,
+        ];
+
+        const messages = [
+            'You must enter a title.',
+        ].map((message: string) => new InvalidTitleError(message));
+
+        return firstLeft<InvalidTitleError, ITemplate>(template, predicates, messages);
     }
 }

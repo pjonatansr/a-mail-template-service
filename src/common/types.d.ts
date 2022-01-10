@@ -23,3 +23,17 @@ export interface ITemplate {
 export interface IDomainError {
     message: string
 }
+
+interface ILeft<A> {
+    value: A;
+    tag: 'left'
+}
+
+interface IRight<B> {
+    value: B;
+    tag: 'right'
+}
+
+export type Either<A, B> = ILeft<A> | IRight<B>;
+
+export type Predicate<N> = (val: N) => boolean

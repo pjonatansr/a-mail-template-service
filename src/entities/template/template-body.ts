@@ -1,6 +1,8 @@
-import { IBody } from 'src/common/types';
+import { Either, IBody } from 'src/common/types';
+import {
+    firstLeft, isLeft, Right,
+} from 'src/shared/either';
 
-import { Either, left, right } from '../../shared/either';
 import { InvalidBodyError } from './errors/invalid-body';
 
 export class Body implements IBody {
@@ -23,10 +25,12 @@ export class Body implements IBody {
     }
 
     static create(body: IBody): Either<InvalidBodyError, Body> {
-        if (!Body.validate(body)) {
-            return left(new InvalidBodyError());
+        const result = Body.validate(body);
+        if (isLeft(result)) {
+            return result;
         }
-        return right(new Body(body));
+
+        return Right(new Body(body));
     }
 
     get value(): IBody {
@@ -36,7 +40,17 @@ export class Body implements IBody {
         };
     }
 
-    static validate(body: IBody): boolean {
-        throw new Error('Method not implemented.');
+    static validate(body: IBody): Either<InvalidBodyError, IBody> {
+        const contentLengthMustBePositive = ({ content }: IBody) => content?.length > 0;
+
+        const predicates = [
+            contentLengthMustBePositive,
+        ];
+
+        const messages = [
+            'You must enter the content.',
+        ].map((message: string) => new InvalidBodyError(message));
+
+        return firstLeft<InvalidBodyError, IBody>(body, predicates, messages);
     }
 }
