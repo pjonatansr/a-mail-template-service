@@ -1,5 +1,5 @@
-import { IGroup } from 'src/common/types';
-import { Either, left, right } from 'src/shared/either';
+import { Either, IGroup } from 'src/common/types';
+import { isLeft, Left, Right } from 'src/shared/either';
 
 import { InvalidGroupError } from './invalid-group';
 
@@ -22,11 +22,19 @@ export class Group implements IGroup {
         return this._groupName;
     }
 
-    static create(group: IGroup): Either<InvalidGroupError, Group> {
-        if (!Group.validate(group)) {
-            return left(new InvalidGroupError());
+    static create(g: IGroup): Either<InvalidGroupError, Group> {
+        const result = Group.validate(g);
+
+        if (isLeft(result)) {
+            return result;
         }
-        return right(new Group(group));
+
+        return Right(new Group(result.value));
+
+        if (!Group.validate(g)) {
+            return Left(new InvalidGroupError());
+        }
+        return Right(new Group(g));
     }
 
     get value(): IGroup {
@@ -36,7 +44,7 @@ export class Group implements IGroup {
         };
     }
 
-    static validate(group: IGroup): boolean {
+    static validate(group: IGroup): Either<InvalidGroupError, IGroup> {
         throw new Error('Method not implemented.');
     }
 }
