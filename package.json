@@ -7,7 +7,8 @@
     "dev": "ts-node-dev -r tsconfig-paths/register -r dotenv/config --inspect --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "test": "jest",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "start": "npm run build && node -r dotenv/config dist/server.js"
+    "start": "npm run build && node -r dotenv/config dist/server.js",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
     "@babel/node": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
+    "@commitlint/cli": "^16.0.2",
+    "@commitlint/config-conventional": "^16.0.0",
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
@@ -35,6 +38,7 @@
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-import-helpers": "^1.2.1",
+    "husky": "^7.0.4",
     "jest": "^27.4.7",
     "ts-jest": "^27.1.2",
     "ts-node-dev": "^1.1.8",
