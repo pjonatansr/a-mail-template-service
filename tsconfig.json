@@ -16,7 +16,7 @@
     "emitDecoratorMetadata": true,
     "typeRoots": [
       "./node_modules/@types",
-      "./src/common"
+      "./src/@types"
     ],
     "resolveJsonModule": true,
     "baseUrl": ".",
@@ -26,5 +26,6 @@
   },
   "include": [
     "src/**/*"
-  ]
+  ],
+  "sourceMap": true
 }
