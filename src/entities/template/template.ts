@@ -11,17 +11,23 @@ import { Body } from './template-body';
 import { Header } from './template-header';
 
 export class Template {
+    public readonly id: string;
+
     public readonly body: Body;
 
     public readonly header: Header;
 
     public readonly title: string;
 
-    private constructor(
+    private constructor({
+        body,
+        header,
+        title,
+    }: {
         body: Body,
         header: Header,
         title: string,
-    ) {
+    }) {
         this.body = body;
         this.header = header;
         this.title = title;
@@ -50,11 +56,11 @@ export class Template {
             return headerOrError;
         }
 
-        return Right<Template>(new Template(
-            bodyOrError.value,
-            headerOrError.value,
-            template.title,
-        ));
+        return Right<Template>(new Template({
+            body: bodyOrError.value,
+            header: headerOrError.value,
+            title: template.title,
+        }));
     }
 
     static validate(template: ITemplate):
