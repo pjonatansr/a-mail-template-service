@@ -1,7 +1,7 @@
 import { Either, IGroup } from 'src/common/types';
-import { isLeft, Left, Right } from 'src/shared/either';
+import { firstLeft, isLeft, Left, Right } from 'src/shared/either';
 
-import { InvalidGroupError } from './invalid-group';
+import { InvalidGroupError } from './errors/invalid-group';
 
 export class Group implements IGroup {
     private readonly _contacts: string[];
@@ -30,11 +30,6 @@ export class Group implements IGroup {
         }
 
         return Right(new Group(result.value));
-
-        if (!Group.validate(g)) {
-            return Left(new InvalidGroupError());
-        }
-        return Right(new Group(g));
     }
 
     get value(): IGroup {
@@ -45,6 +40,16 @@ export class Group implements IGroup {
     }
 
     static validate(group: IGroup): Either<InvalidGroupError, IGroup> {
-        throw new Error('Method not implemented.');
+        const contactsLengthMustBePositive = ({ contacts }: IGroup) => contacts?.length > 0;
+
+        const predicates = [
+            contactsLengthMustBePositive,
+        ];
+
+        const messages = [
+            'You must enter a contact.',
+        ].map((message: string) => new InvalidGroupError(message));
+
+        return firstLeft<InvalidGroupError, IGroup>(group, predicates, messages);
     }
 }
