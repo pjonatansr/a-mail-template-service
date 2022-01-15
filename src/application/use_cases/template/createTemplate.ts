@@ -1,4 +1,6 @@
-import { ITemplate, IRepository, Either } from 'src/common/types';
+import {
+    ITemplate, IRepository, Either, TemplateOrDatabaseError,
+} from 'src/common/types';
 import { Template } from 'src/entities/template/template';
 import { isLeft } from 'src/shared/either';
 
@@ -12,9 +14,13 @@ const CreateTemplate = async (
         throw templateOrError;
     }
 
-    const template: Template = await persist(templateOrError.value);
+    const persistedTemplateOrError: TemplateOrDatabaseError = await persist(templateOrError.value);
 
-    return template;
+    if (isLeft(persistedTemplateOrError)) {
+        throw persistedTemplateOrError;
+    }
+
+    return persistedTemplateOrError.value;
 };
 
 export default CreateTemplate;

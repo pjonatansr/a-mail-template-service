@@ -1,13 +1,18 @@
-import { ITemplate, IRepository } from 'src/common/types';
+import { ITemplate, IRepository, TemplateOrDatabaseError } from 'src/common/types';
 import { Template } from 'src/entities/template/template';
+import { isLeft } from 'src/shared/either';
 
 const GetTemplate = async (
     { id }: ITemplate,
     { get }: IRepository,
 ): Promise<Template> => {
-    const template: Template = await get(id);
+    const templateOrError: TemplateOrDatabaseError = await get(id);
 
-    return template;
+    if (isLeft(templateOrError)) {
+        throw templateOrError;
+    }
+
+    return templateOrError.value;
 };
 
 export default GetTemplate;
