@@ -55,3 +55,10 @@ interface ILogError {
 export interface ILogger {
     logError: ILogError
 }
+interface IEnviroment {
+    database: {
+        dialect: string;
+        url: string;
+        driver?: string;
+    };
+}

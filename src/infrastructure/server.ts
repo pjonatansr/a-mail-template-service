@@ -25,7 +25,7 @@ app.use('/api/group', groupRouter);
 app.use('/api/contact', contactRouter);
 
 app.listen(
-    process.env.PORT || 3000,
+    process.env.SERVER_PORT || 3000,
     () => {
         console.log('The app is listening.');
     },
