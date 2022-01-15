@@ -40,18 +40,18 @@ interface IRight<B> {
 
 export type Either<A, B> = ILeft<A> | IRight<B>;
 
-export type Predicate<N> = (val: N) => boolean
-export interface IPersist {
-    (template: Template): Promise<Template>;
-}
-export interface IGet {
-    (id: string): Promise<Template>;
-}
-export interface IList {
-    (): Promise<Template[]>;
-}
+export type Predicate<N> = (val: N) => boolean;
+
 export interface IRepository {
-    persist: IPersist,
-    get: IGet,
-    list: IList,
+    persist(template: Template): Promise<Template>
+    get(_id: string): Promise<Template>
+    list(): Promise<Template[]>
+}
+
+interface ILogError {
+    (error: Error): void
+}
+
+export interface ILogger {
+    logError: ILogError
 }

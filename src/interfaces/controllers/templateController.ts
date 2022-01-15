@@ -1,23 +1,34 @@
 import CreateTemplate from 'src/application/use_cases/template/createTemplate';
-import { IRepository, ITemplate } from 'src/common/types';
+import { GetTemplate } from 'src/application/use_cases/template/getTemplate';
+import { ILogger, IRepository } from 'src/common/types';
 import { Template } from 'src/entities/template/template';
 import TemplateRepository from 'src/infrastructure/repositories/templateRepository';
 
-const createTemplate = async (request: any): Promise<Template> => {
-    const { ...templateData }: ITemplate = request.params;
+const logger: ILogger = {
+    logError(error: Error): void {
+        console.log(error.message);
+    },
+};
 
-    const repository: IRepository = TemplateRepository();
+const createTemplate = async (
+    { params },
+): Promise<Template> => {
+    const repository: IRepository = new TemplateRepository(logger);
 
-    const templateCreated = await CreateTemplate(templateData, repository);
+    const templateCreated = await CreateTemplate({ ...params }, repository);
 
     return templateCreated;
 };
 
-const getTemplate = async (request: unknown): Promise<Template> => {
-    throw new Error('Method not implemented');
+const getTemplate = async ({ query }): Promise<Template> => {
+    const repository: IRepository = new TemplateRepository(logger);
+
+    const template = await GetTemplate({ ...query }, repository);
+
+    return template;
 };
 
-const listTemplates = async (request: unknown): Promise<Template[]> => {
+const listTemplates = async (): Promise<Template[]> => {
     throw new Error('Method not implemented');
 };
 
