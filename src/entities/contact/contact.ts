@@ -48,11 +48,13 @@ export class Contact implements IContact {
     }
 
     static validate(contact: IContact): Either<InvalidContactError, IContact> {
-       
-        const addressLengthMustBePositive = ({ address }: IContact) => address?.length > 0;
+        const addressLengthMustBePositive = (
+            { address }: IContact,
+        ) => address?.length > 0;
 
-        const personTitleLengthMustBePositive = ({ personTitle }: IContact) => personTitle?.length > 0;
-
+        const personTitleLengthMustBePositive = (
+            { personTitle }: IContact,
+        ) => personTitle?.length > 0;
 
         const predicates = [
             addressLengthMustBePositive,
@@ -61,7 +63,7 @@ export class Contact implements IContact {
 
         const messages = [
             'You must enter a contact.',
-            'You must enter a person title.'
+            'You must enter a person title.',
         ].map((message: string) => new InvalidContactError(message));
 
         return firstLeft<InvalidContactError, IContact>(contact, predicates, messages);
