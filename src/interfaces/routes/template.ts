@@ -1,13 +1,26 @@
 import express from 'express';
+import { Template } from 'src/entities/template/template';
+
+import * as TemplateController from '../controllers/templateController';
 
 const router = express.Router();
 
-router.post('/template', async (req, res) => {
-    res.json('Create Template');
+router.post('', async (req, res) => {
+    const template: Template = await TemplateController.createTemplate(req);
+
+    res.json(template);
 });
 
-router.get('/template/:id?', async (_, res) => {
-    res.json('Get Template');
+router.get('', async (_, res) => {
+    const templates = await TemplateController.listTemplates();
+
+    res.json(templates);
+});
+
+router.get('/:id', async (req, res) => {
+    const template: Template = await TemplateController.getTemplate(req);
+
+    res.json(template);
 });
 
 export { router };
