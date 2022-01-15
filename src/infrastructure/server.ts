@@ -3,9 +3,9 @@ import express from 'express';
 import path from 'path';
 import favicon from 'serve-favicon';
 
-import { router as templateRouter } from '../interfaces/routes/template';
-import { router as groupRouter } from '../interfaces/routes/group';
 import { router as contactRouter } from '../interfaces/routes/contact';
+import { router as groupRouter } from '../interfaces/routes/group';
+import { router as templateRouter } from '../interfaces/routes/template';
 
 const app = express();
 
