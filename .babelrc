@@ -1,26 +1,24 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": "current"
-        }
-      }
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "node": "current"
+                }
+            }
+        ],
+        "@babel/preset-typescript"
     ],
-    "@babel/preset-typescript"
-  ],
-  "plugins": [
-    [
-      "module-resolver",
-      {
-        "alias": {
-
-        }
-      }
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "alias": {}
+            }
+        ]
+    ],
+    "ignore": [
+        "**/*.test.ts"
     ]
-  ],
-  "ignore": [
-    "**/*.spec.ts"
-  ]
 }
