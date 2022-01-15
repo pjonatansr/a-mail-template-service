@@ -10,6 +10,4 @@ const GetTemplate = async (
     return template;
 };
 
-export {
-    GetTemplate,
-};
+export default GetTemplate;

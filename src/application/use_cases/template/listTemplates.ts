@@ -1,15 +1,18 @@
-import { ITemplate, IRepository } from 'src/common/types';
+import { DatabaseError } from 'src/common/errors/databaseError';
+import { Either, IRepository } from 'src/common/types';
 import { Template } from 'src/entities/template/template';
+import { isLeft } from 'src/shared/either';
 
 const ListTemplates = async (
-    { id }: ITemplate,
-    { get }: IRepository,
-): Promise<Template> => {
-    const template: Template = await get(id);
+    { list }: IRepository,
+): Promise<Either<DatabaseError, Template[]>> => {
+    const templateOrError : Either<DatabaseError, Template[]> = await list();
 
-    return template;
+    if (isLeft(templateOrError)) {
+        return templateOrError;
+    }
+
+    return templateOrError;
 };
 
-export {
-    ListTemplates,
-};
+export default ListTemplates;
