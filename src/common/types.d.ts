@@ -28,6 +28,11 @@ export interface IDomainError {
     message: string
 }
 
+export interface IDatabaseError {
+    message: string,
+    instance?: Template | string,
+}
+
 interface ILeft<A> {
     value: A;
     tag: 'left'
@@ -43,9 +48,9 @@ export type Either<A, B> = ILeft<A> | IRight<B>;
 export type Predicate<N> = (val: N) => boolean;
 
 export interface IRepository {
-    persist(template: Template): Promise<Template>
-    get(_id: string): Promise<Template>
-    list(): Promise<Template[]>
+    persist(template: Template): Promise<Either<Template | IDatabaseError>>
+    get(_id: string): Promise<Either<Template | IDatabaseError>>
+    list(): Promise<Either<Template[] | IDatabaseError>>
 }
 
 interface ILogError {
@@ -62,3 +67,9 @@ interface IEnviroment {
         driver?: string;
     };
 }
+
+type DatabaseErrorType =
+    Either<DatabaseError, Template[] | Template>
+    | PromiseLike<Either<DatabaseError, Template[] | Template>>;
+
+type TemplateOrDatabaseError = Either<DatabaseError, Template>;
