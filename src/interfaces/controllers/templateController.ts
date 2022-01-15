@@ -1,8 +1,9 @@
 import CreateTemplate from 'src/application/use_cases/template/createTemplate';
-import { GetTemplate } from 'src/application/use_cases/template/getTemplate';
+import GetTemplate from 'src/application/use_cases/template/getTemplate';
+import ListTemplates from 'src/application/use_cases/template/listTemplates';
 import { ILogger, IRepository } from 'src/common/types';
 import { Template } from 'src/entities/template/template';
-import TemplateRepository from 'src/infrastructure/repositories/templateRepository';
+import TemplateRepository from 'src/infrastructure/repositories/templateRepositoryMongo';
 
 const logger: ILogger = {
     logError(error: Error): void {
@@ -29,7 +30,11 @@ const getTemplate = async ({ query }): Promise<Template> => {
 };
 
 const listTemplates = async (): Promise<Template[]> => {
-    throw new Error('Method not implemented');
+    const repository: IRepository = new TemplateRepository(logger);
+
+    const template = await ListTemplates(repository);
+
+    return template;
 };
 
 export {
