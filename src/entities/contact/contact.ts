@@ -1,4 +1,4 @@
-import { Either, IContact } from 'src/common/types';
+import { Either, IContact } from 'src/common/types/types';
 import { firstLeft, isLeft, Right } from 'src/shared/either';
 
 import { InvalidContactError } from './errors/invalid-contact';

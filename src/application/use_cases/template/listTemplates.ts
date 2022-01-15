@@ -1,4 +1,4 @@
-import { IRepository, TemplateOrDatabaseError } from 'src/common/types';
+import { IRepository, TemplateOrDatabaseError } from 'src/common/types/types';
 import { Template } from 'src/entities/template/template';
 import { isLeft } from 'src/shared/either';
 

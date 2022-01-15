@@ -3,7 +3,7 @@ import {
     DatabaseErrorType,
     Either,
     ILogger, IRepository,
-} from 'src/common/types';
+} from 'src/common/types/types';
 import { Template } from 'src/entities/template/template';
 import { Left } from 'src/shared/either';
 

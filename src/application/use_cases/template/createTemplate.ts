@@ -1,6 +1,6 @@
 import {
     ITemplate, IRepository, Either, TemplateOrDatabaseError,
-} from 'src/common/types';
+} from 'src/common/types/types';
 import { Template } from 'src/entities/template/template';
 import { isLeft } from 'src/shared/either';
 

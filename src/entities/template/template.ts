@@ -1,7 +1,7 @@
 import {
     Either,
     ITemplate,
-} from 'src/common/types';
+} from 'src/common/types/types';
 import { firstLeft, isLeft, Right } from 'src/shared/either';
 
 import { InvalidBodyError } from './errors/invalid-body';
@@ -35,7 +35,7 @@ export class Template {
     }
 
     static create(template: ITemplate):
-    Either<InvalidBodyError | InvalidHeaderError | InvalidTitleError, Template> {
+        Either<InvalidBodyError | InvalidHeaderError | InvalidTitleError, Template> {
         const result = Template.validate(template);
 
         if (isLeft(result)) {
@@ -43,14 +43,14 @@ export class Template {
         }
 
         const bodyOrError:
-        Either<InvalidBodyError, Body> = Body.create(template.body);
+            Either<InvalidBodyError, Body> = Body.create(template.body);
 
         if (isLeft(bodyOrError)) {
             return bodyOrError;
         }
 
         const headerOrError:
-        Either<InvalidHeaderError, Header> = Header.create(template.header);
+            Either<InvalidHeaderError, Header> = Header.create(template.header);
 
         if (isLeft(headerOrError)) {
             return headerOrError;
@@ -64,7 +64,7 @@ export class Template {
     }
 
     static validate(template: ITemplate):
-    Either<InvalidTitleError, ITemplate> {
+        Either<InvalidTitleError, ITemplate> {
         const titleLengthMustBePositive = ({ title }: ITemplate) => title?.length > 0;
 
         const predicates = [

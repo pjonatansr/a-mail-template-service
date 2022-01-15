@@ -1,5 +1,5 @@
 import { DatabaseError } from 'src/common/errors/databaseError';
-import { Either } from 'src/common/types';
+import { Either } from 'src/common/types/types';
 import { Template } from 'src/entities/template/template';
 import TemplateRepository from 'src/entities/template/templateRepository';
 
