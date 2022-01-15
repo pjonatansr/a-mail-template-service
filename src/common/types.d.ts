@@ -2,7 +2,11 @@ export interface IGroup {
     contacts: string[],
     groupName: string,
 }
-
+export interface IContact {
+    address: string[],
+    alias: string,
+    personTitle: string,
+}
 export interface IHeader {
     bcc: IGroup[],
     cc: IGroup[],
