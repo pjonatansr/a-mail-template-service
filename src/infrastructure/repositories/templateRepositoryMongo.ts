@@ -6,7 +6,7 @@ import TemplateRepository from 'src/entities/template/templateRepository';
 export class TemplateRepositoryMongo extends TemplateRepository {
     async persist(template: Template): Promise<Either<DatabaseError, Template>> {
         try {
-            //
+            // Trying to persist the template
         } catch (e) {
             this.logger.logError(e);
         }

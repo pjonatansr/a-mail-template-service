@@ -10,10 +10,6 @@ const getEnvironment = ((): IEnviroment => {
         },
     };
 
-    if (process.env.NODE_ENV === 'test') {
-        environment.database.driver = constants.SUPPORTED_DATABASE.IN_MEMORY;
-    }
-
     return environment;
 })();
 
