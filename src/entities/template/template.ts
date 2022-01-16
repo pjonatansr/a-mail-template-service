@@ -1,7 +1,7 @@
 import {
     Either,
     ITemplate,
-} from 'src/common/types/types';
+} from '@types';
 import { firstLeft, isLeft, Right } from 'src/shared/either';
 
 import { InvalidBodyError } from './errors/invalid-body';

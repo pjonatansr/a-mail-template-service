@@ -1,6 +1,6 @@
 import {
     Either, IErrorMessage, ILeft, IRight, Predicate,
-} from 'src/common/types/types';
+} from '@types';
 
 export function isLeft<A>(val: unknown): val is ILeft<A> {
     if ((val as ILeft<A>).tag === 'left') return true;

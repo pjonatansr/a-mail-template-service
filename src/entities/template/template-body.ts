@@ -1,4 +1,4 @@
-import { Either, IBody } from 'src/common/types/types';
+import { Either, IBody } from '@types';
 import {
     firstLeft, isLeft, Right,
 } from 'src/shared/either';
