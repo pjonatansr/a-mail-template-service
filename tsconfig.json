@@ -8,46 +8,30 @@
         "skipLibCheck": true,
         "rootDir": "./src",
         "outDir": "./dist",
-        "lib": [
-            "ES6"
-        ],
+        "lib": ["ES6"],
         "removeComments": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "typeRoots": [
-            "./node_modules/@types",
-            "./src/commom/types"
-        ],
+        "typeRoots": ["./node_modules/@types", "./src/commom/types"],
         "resolveJsonModule": true,
         "baseUrl": ".",
         "paths": {
-            "*": [
-                "*",
-            ],
+            "*": ["*"],
             "@entities/*": [
                 "src/entities/template/*",
                 "src/entities/group/*",
                 "src/entities/contact/*"
             ],
-            "@use_cases/*": [
-                "src/application/use_cases/template/*"
-            ],
+            "@use_cases/*": ["src/application/use_cases/template/*"],
             "@schema/*": [
                 "src/infrastructure/orm/mongoose/schema/template/*",
                 "src/infrastructure/orm/mongoose/schema/group/*",
                 "src/infrastructure/orm/mongoose/schema/contact/*"
             ],
-            "@types": [
-                "src/common/types/types"
-            ],
-            "@errors": [
-                "src/common/errors"
-            ]
+            "@types": ["src/common/types/types"],
+            "@errors": ["src/common/errors"]
         }
     },
-    "include": [
-        "src/**/*",
-        "test/**/*"
-    ],
+    "include": ["src/**/*", "test/**/*"],
     "sourceMap": true
 }

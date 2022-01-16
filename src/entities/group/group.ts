@@ -42,14 +42,16 @@ export class Group implements IGroup {
     static validate(group: IGroup): Either<InvalidGroupError, IGroup> {
         const contactsLengthMustBePositive = ({ contacts }: IGroup) => contacts?.length > 0;
 
-        const predicates = [
-            contactsLengthMustBePositive,
-        ];
+        const predicates = [contactsLengthMustBePositive];
 
-        const messages = [
-            'You must enter a contact.',
-        ].map((message: string) => new InvalidGroupError(message));
+        const messages = ['You must enter a contact.'].map(
+            (message: string) => new InvalidGroupError(message),
+        );
 
-        return firstLeft<InvalidGroupError, IGroup>(group, predicates, messages);
+        return firstLeft<InvalidGroupError, IGroup>(
+            group,
+            predicates,
+            messages,
+        );
     }
 }

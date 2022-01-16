@@ -14,11 +14,9 @@ export class TemplateRepositoryMongo extends TemplateRepository {
             const result = { template: null };
             await mongooseTemplate
                 .save()
-                .then(
-                    (templateData: unknown): void => {
-                        result.template = templateData;
-                    },
-                );
+                .then((templateData: unknown): void => {
+                    result.template = templateData;
+                });
 
             return Right<Template>(result.template);
         } catch (e) {
@@ -32,7 +30,9 @@ export class TemplateRepositoryMongo extends TemplateRepository {
 
     async get(_id: string): Promise<TemplateOrError> {
         try {
-            const mongooseTemplate: ITemplate = await MongooseTemplate.findById(_id);
+            const mongooseTemplate: ITemplate = await MongooseTemplate.findById(
+                _id,
+            );
 
             const templateOrError: TemplateOrError = Template.create(mongooseTemplate);
 
@@ -48,8 +48,9 @@ export class TemplateRepositoryMongo extends TemplateRepository {
 
     async list(): Promise<TemplateOrError[]> {
         try {
-            const templatesOrErrors: TemplateOrError[] = (await MongooseTemplate.find())
-                .map((template: ITemplate) => Template.create(template));
+            const templatesOrErrors: TemplateOrError[] = (
+                await MongooseTemplate.find()
+            ).map((template: ITemplate) => Template.create(template));
 
             return templatesOrErrors;
         } catch (e) {
