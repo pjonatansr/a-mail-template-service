@@ -1,7 +1,7 @@
 import { Template } from '@entities/template';
-import TemplateRepository from '@entities/templateRepository';
 import MongooseTemplate from '@schema/template';
 import { ITemplate, TemplateOrError } from '@types';
+import TemplateRepository from 'src/entities/template/template-repository';
 import { Right } from 'src/shared/either';
 
 export class TemplateRepositoryMongo extends TemplateRepository {
@@ -48,8 +48,9 @@ export class TemplateRepositoryMongo extends TemplateRepository {
 
     async list(): Promise<TemplateOrError[]> {
         try {
+            const templates = await MongooseTemplate.find();
             const templatesOrErrors: TemplateOrError[] = (
-                await MongooseTemplate.find()
+                templates
             ).map((template: ITemplate) => Template.create(template));
 
             return templatesOrErrors;

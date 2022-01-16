@@ -1,6 +1,6 @@
 import { mongoose } from '../../mongoose';
-import { bodySchema } from './templateBody';
-import { headerSchema } from './templateHeader';
+import { bodySchema } from './template-body';
+import { headerSchema } from './template-header';
 
 const templateSchema = new mongoose.Schema({
     body: bodySchema,

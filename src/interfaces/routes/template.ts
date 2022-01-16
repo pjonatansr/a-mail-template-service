@@ -1,6 +1,6 @@
 import express from 'express';
 
-import * as TemplateController from '../controllers/templateController';
+import * as TemplateController from '../controllers/template-controller';
 
 const router = express.Router();
 

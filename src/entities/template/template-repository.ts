@@ -2,7 +2,7 @@ import { Template } from '@entities/template';
 import {
     DatabaseErrorType, Either, ILogger, IRepository,
 } from '@types';
-import { DatabaseError } from 'src/common/errors/databaseError';
+import { DatabaseError } from 'src/common/errors/database-error';
 import { Left } from 'src/shared/either';
 
 export class TemplateRepository implements IRepository {
