@@ -1,5 +1,5 @@
 import {
-    Either, ILeft, IRight, Predicate,
+    Either, IErrorMessage, ILeft, IRight, Predicate,
 } from 'src/common/types/types';
 
 export function isLeft<A>(val: unknown): val is ILeft<A> {
@@ -31,4 +31,16 @@ export function firstLeft<A, B>(val: B, predicates: Predicate<B>[], errors: A[])
         if (!p(val)) return Left(errors[i]);
     }
     return Right(val);
+}
+
+export function getInstanceOrError<T>(instanceOrError: Either<Error, T>): IErrorMessage | T {
+    if (isLeft(instanceOrError)) {
+        const errorMessage: IErrorMessage = {
+            error: instanceOrError.value,
+        };
+
+        return errorMessage;
+    }
+
+    return instanceOrError.value;
 }

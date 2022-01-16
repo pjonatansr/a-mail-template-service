@@ -13,7 +13,7 @@ const logger: ILogger = {
 
 const createTemplate = async (
     { params },
-): Promise<Template> => {
+): Promise<Template | Error> => {
     const repository: IRepository = new TemplateRepository(logger);
 
     const templateCreated = await CreateTemplate({ ...params }, repository);
@@ -21,7 +21,7 @@ const createTemplate = async (
     return templateCreated;
 };
 
-const getTemplate = async ({ query }): Promise<Template> => {
+const getTemplate = async ({ query }): Promise<Template | Error> => {
     const repository: IRepository = new TemplateRepository(logger);
 
     const template = await GetTemplate({ ...query }, repository);
@@ -29,12 +29,12 @@ const getTemplate = async ({ query }): Promise<Template> => {
     return template;
 };
 
-const listTemplates = async (): Promise<Template[]> => {
+const listTemplates = async (): Promise<Template[] | Error> => {
     const repository: IRepository = new TemplateRepository(logger);
 
-    const template = await ListTemplates(repository);
+    const templates = await ListTemplates(repository);
 
-    return template;
+    return templates;
 };
 
 export {

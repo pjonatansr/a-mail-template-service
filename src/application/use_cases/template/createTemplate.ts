@@ -1,26 +1,22 @@
 import {
-    ITemplate, IRepository, Either, TemplateOrDatabaseError,
+    ITemplate, IRepository, Either,
 } from 'src/common/types/types';
 import { Template } from 'src/entities/template/template';
 import { isLeft } from 'src/shared/either';
 
 const CreateTemplate = async (
     templateData: ITemplate,
-    { persist }: IRepository,
-): Promise<Template> => {
+    repository: IRepository,
+): Promise<Template | Error> => {
     const templateOrError: Either<Error, Template> = Template.create(templateData);
 
     if (isLeft(templateOrError)) {
-        throw templateOrError;
+        return templateOrError.value;
     }
 
-    const persistedTemplateOrError: TemplateOrDatabaseError = await persist(templateOrError.value);
+    const template: Template | Error = await repository.persist(templateOrError.value);
 
-    if (isLeft(persistedTemplateOrError)) {
-        throw persistedTemplateOrError;
-    }
-
-    return persistedTemplateOrError.value;
+    return template;
 };
 
 export default CreateTemplate;

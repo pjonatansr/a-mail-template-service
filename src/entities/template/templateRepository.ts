@@ -26,6 +26,16 @@ export class TemplateRepository implements IRepository {
         logger: this.logger,
     });
 
+    private getError = ({ method, target }: {
+        method: string, target?: Template | string
+    }): DatabaseErrorType => Left(new DatabaseError(
+        'Method not implemented',
+        this.getErrorData({
+            method,
+            target,
+        }),
+    ));
+
     async persist(template: Template): Promise<Either<DatabaseError, Template>> {
         return this.getError({ method: 'persist', target: template });
     }
@@ -37,16 +47,6 @@ export class TemplateRepository implements IRepository {
     async list(): Promise<Either<DatabaseError, Template[]>> {
         return this.getError({ method: 'list' });
     }
-
-    private getError = ({ method, target }: {
-        method: string, target?: Template | string
-    }): DatabaseErrorType => Left(new DatabaseError(
-        'Method not implemented',
-        this.getErrorData({
-            method,
-            target,
-        }),
-    ));
 }
 
 export default TemplateRepository;

@@ -33,12 +33,12 @@ export interface IDatabaseError {
     instance?: Template | string,
 }
 
-interface ILeft<A> {
+export interface ILeft<A> {
     value: A;
     tag: 'left'
 }
 
-interface IRight<B> {
+export interface IRight<B> {
     value: B;
     tag: 'right'
 }
@@ -53,22 +53,26 @@ export interface IRepository {
     list(): Promise<Either<Template[] | IDatabaseError>>
 }
 
-interface ILogError {
+export interface ILogError {
     (error: Error): void
 }
 
 export interface ILogger {
     logError: ILogError
 }
-interface IEnviroment {
+export interface IEnviroment {
     database: {
         dialect: string;
         url: string;
     };
 }
 
-type DatabaseErrorType =
+export type DatabaseErrorType =
     Either<DatabaseError, Template[] | Template>
     | PromiseLike<Either<DatabaseError, Template[] | Template>>;
 
-type TemplateOrDatabaseError = Either<DatabaseError, Template>;
+export type TemplateOrDatabaseError = Either<DatabaseError, Template>;
+
+export interface IErrorMessage {
+    error: Error
+}
