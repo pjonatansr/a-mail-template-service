@@ -1,13 +1,13 @@
+import { Template } from '@entities/template';
 import {
-    ITemplate, IRepository, TemplateOrDatabaseError,
-} from 'src/common/types/types';
-import { Template } from 'src/entities/template/template';
+    ITemplate, IRepository, TemplateOrError,
+} from '@types';
 
 const GetTemplate = async (
     { id }: ITemplate,
     repository: IRepository,
 ): Promise<Template | Error> => {
-    const templateOrError: TemplateOrDatabaseError = await repository.get(id);
+    const templateOrError: TemplateOrError = await repository.get(id);
 
     return templateOrError.value;
 };

@@ -1,4 +1,4 @@
-import { Either, IGroup } from 'src/common/types/types';
+import { Either, IGroup } from '@types';
 import { firstLeft, isLeft, Right } from 'src/shared/either';
 
 import { InvalidGroupError } from './errors/invalid-group';

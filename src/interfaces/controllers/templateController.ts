@@ -1,8 +1,8 @@
+import { Template } from '@entities/template';
+import { ILogger, IRepository } from '@types';
 import CreateTemplate from 'src/application/use_cases/template/createTemplate';
 import GetTemplate from 'src/application/use_cases/template/getTemplate';
 import ListTemplates from 'src/application/use_cases/template/listTemplates';
-import { ILogger, IRepository } from 'src/common/types/types';
-import { Template } from 'src/entities/template/template';
 import TemplateRepository from 'src/infrastructure/repositories/templateRepositoryMongo';
 
 const logger: ILogger = {

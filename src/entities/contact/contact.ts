@@ -1,23 +1,23 @@
-import { Either, IContact } from 'src/common/types/types';
+import { Either, IContact } from '@types';
 import { firstLeft, isLeft, Right } from 'src/shared/either';
 
 import { InvalidContactError } from './errors/invalid-contact';
 
 export class Contact implements IContact {
-    private readonly _address: string[];
+    private readonly _address: string;
 
     private readonly _alias: string;
 
     private readonly _personTitle: string;
 
-    private constructor({ address: adress, alias, personTitle }: IContact) {
-        this._address = adress;
+    private constructor({ address, alias, personTitle }: IContact) {
+        this._address = address;
         this._alias = alias;
         this._personTitle = personTitle;
         Object.freeze(this);
     }
 
-    public get address(): string[] {
+    public get address(): string {
         return this._address;
     }
 

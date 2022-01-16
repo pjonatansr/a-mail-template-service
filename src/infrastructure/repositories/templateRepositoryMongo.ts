@@ -1,38 +1,64 @@
-import { DatabaseError } from 'src/common/errors/databaseError';
-import { Either } from 'src/common/types/types';
-import { Template } from 'src/entities/template/template';
-import TemplateRepository from 'src/entities/template/templateRepository';
+import { Template } from '@entities/template';
+import TemplateRepository from '@entities/templateRepository';
+import MongooseTemplate from '@schema/template';
+import { ITemplate, TemplateOrError } from '@types';
+import { Right } from 'src/shared/either';
 
 export class TemplateRepositoryMongo extends TemplateRepository {
-    async persist(template: Template): Promise<Either<DatabaseError, Template>> {
+    async persist(template: Template): Promise<TemplateOrError> {
         try {
-            // Trying to persist the template
+            const mongooseTemplate = new MongooseTemplate({
+                ...template,
+            });
+
+            const result = { template: null };
+            await mongooseTemplate
+                .save()
+                .then(
+                    (templateData: unknown): void => {
+                        result.template = templateData;
+                    },
+                );
+
+            return Right<Template>(result.template);
         } catch (e) {
             this.logger.logError(e);
+            return this.getError({
+                method: 'persist',
+                target: template,
+            });
         }
-
-        return null;
     }
 
-    async get(_id: string): Promise<Either<DatabaseError, Template>> {
+    async get(_id: string): Promise<TemplateOrError> {
         try {
-            // Trying to get the template
+            const mongooseTemplate: ITemplate = await MongooseTemplate.findById(_id);
+
+            const templateOrError: TemplateOrError = Template.create(mongooseTemplate);
+
+            return templateOrError;
         } catch (e) {
             this.logger.logError(e);
+            return this.getError({
+                method: 'persist',
+                target: _id,
+            });
         }
-
-        return null;
     }
 
-    async list(): Promise<Either<DatabaseError, Template[]>> {
+    async list(): Promise<TemplateOrError[]> {
         try {
-            // Trying to get the templates
+            const templatesOrErrors: TemplateOrError[] = (await MongooseTemplate.find())
+                .map((template: ITemplate) => Template.create(template));
+
+            return templatesOrErrors;
         } catch (e) {
             this.logger.logError(e);
+            return this.getError({
+                method: 'persist',
+            });
         }
-
-        return null;
     }
 }
 
-export default TemplateRepository;
+export default TemplateRepositoryMongo;

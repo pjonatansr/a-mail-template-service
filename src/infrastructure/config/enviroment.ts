@@ -1,4 +1,4 @@
-import { IEnviroment } from 'src/common/types/types';
+import { IEnviroment } from '@types';
 
 import * as constants from './constants';
 

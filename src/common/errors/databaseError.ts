@@ -1,4 +1,4 @@
-import { IDatabaseError } from 'src/common/types/types';
+import { IDatabaseError } from '@types';
 
 export class DatabaseError extends Error implements IDatabaseError {
     public readonly instance: unknown;

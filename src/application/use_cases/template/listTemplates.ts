@@ -1,10 +1,10 @@
-import { IRepository, TemplateOrDatabaseError } from 'src/common/types/types';
-import { Template } from 'src/entities/template/template';
+import { Template } from '@entities/template';
+import { IRepository, TemplateOrError } from '@types';
 
 const ListTemplates = async (
     repository: IRepository,
 ): Promise<Template[] | Error> => {
-    const templateOrError: TemplateOrDatabaseError = await repository.list();
+    const templateOrError: TemplateOrError = await repository.list();
 
     return templateOrError.value;
 };
