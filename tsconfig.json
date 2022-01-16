@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "module": "commonjs",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
@@ -21,16 +21,33 @@
         "resolveJsonModule": true,
         "baseUrl": ".",
         "paths": {
+            "*": [
+                "*",
+            ],
             "@entities/*": [
-                "entities/*"
+                "src/entities/template/*",
+                "src/entities/group/*",
+                "src/entities/contact/*"
             ],
             "@use_cases/*": [
-                "use_cases/*"
+                "src/application/use_cases/template/*"
+            ],
+            "@schema/*": [
+                "src/infrastructure/orm/mongoose/schema/template/*",
+                "src/infrastructure/orm/mongoose/schema/group/*",
+                "src/infrastructure/orm/mongoose/schema/contact/*"
+            ],
+            "@types": [
+                "src/common/types/types"
+            ],
+            "@errors": [
+                "src/common/errors"
             ]
         }
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "test/**/*"
     ],
     "sourceMap": true
 }

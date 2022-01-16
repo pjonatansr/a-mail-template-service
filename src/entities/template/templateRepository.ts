@@ -1,10 +1,10 @@
-import { DatabaseError } from 'src/common/errors/databaseError';
+import { Template } from '@entities/template';
 import {
     DatabaseErrorType,
     Either,
     ILogger, IRepository,
-} from 'src/common/types/types';
-import { Template } from 'src/entities/template/template';
+} from '@types';
+import { DatabaseError } from 'src/common/errors/databaseError';
 import { Left } from 'src/shared/either';
 
 export class TemplateRepository implements IRepository {
@@ -14,7 +14,7 @@ export class TemplateRepository implements IRepository {
         this.logger = logger;
     }
 
-    private getErrorData = ({ method, target }: {
+    protected getErrorData = ({ method, target }: {
         method: string, target?: Template | string
     }): {
         method: string,
@@ -26,7 +26,7 @@ export class TemplateRepository implements IRepository {
         logger: this.logger,
     });
 
-    private getError = ({ method, target }: {
+    protected getError = ({ method, target }: {
         method: string, target?: Template | string
     }): DatabaseErrorType => Left(new DatabaseError(
         'Method not implemented',
@@ -36,15 +36,15 @@ export class TemplateRepository implements IRepository {
         }),
     ));
 
-    async persist(template: Template): Promise<Either<DatabaseError, Template>> {
+    async persist(template: Template): Promise<Either<Error, Template>> {
         return this.getError({ method: 'persist', target: template });
     }
 
-    async get(_id: string): Promise<Either<DatabaseError, Template>> {
+    async get(_id: string): Promise<Either<Error, Template>> {
         return this.getError({ method: 'get', target: _id });
     }
 
-    async list(): Promise<Either<DatabaseError, Template[]>> {
+    async list(): Promise<Either<Error, Template>[]> {
         return this.getError({ method: 'list' });
     }
 }

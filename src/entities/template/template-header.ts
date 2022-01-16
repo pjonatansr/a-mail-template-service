@@ -1,4 +1,4 @@
-import { Either, IGroup, IHeader } from 'src/common/types/types';
+import { Either, IGroup, IHeader } from '@types';
 import {
     firstLeft, isLeft, Right,
 } from 'src/shared/either';

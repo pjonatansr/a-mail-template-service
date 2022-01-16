@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { environment } from '../config/enviroment';
+import { environment } from '../../config/enviroment';
 
 mongoose.connect(environment.database?.url);
 

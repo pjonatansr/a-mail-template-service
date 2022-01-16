@@ -3,7 +3,7 @@ export interface IGroup {
     groupName: string,
 }
 export interface IContact {
-    address: string[],
+    address: string,
     alias: string,
     personTitle: string,
 }
@@ -68,10 +68,10 @@ export interface IEnviroment {
 }
 
 export type DatabaseErrorType =
-    Either<DatabaseError, Template[] | Template>
-    | PromiseLike<Either<DatabaseError, Template[] | Template>>;
+    Either<DatabaseError | Template>
+    | Either<DatabaseError | Template>[]
 
-export type TemplateOrDatabaseError = Either<DatabaseError, Template>;
+export type TemplateOrError = Either<Error, Template>;
 
 export interface IErrorMessage {
     error: Error

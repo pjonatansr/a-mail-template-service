@@ -1,4 +1,4 @@
-import { IDomainError } from 'src/common/types/types';
+import { IDomainError } from '@types';
 
 export class InvalidGroupError extends Error implements IDomainError {
     constructor(message: string) {
