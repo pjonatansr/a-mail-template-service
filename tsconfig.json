@@ -45,6 +45,9 @@
             ],
             "@errors": [
                 "src/common/errors"
+            ],
+            "@shared/*": [
+                "src/shared/*"
             ]
         }
     },
