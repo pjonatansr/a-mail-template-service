@@ -55,6 +55,8 @@ export class TemplateRepository implements IRepository {
     async list(): Promise<Either<Error, Template>[]> {
         return this.getError({ method: 'list' });
     }
+
+    public static makeRepository = (logger: ILogger) => new TemplateRepository(logger);
 }
 
 export default TemplateRepository;

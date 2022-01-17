@@ -53,12 +53,8 @@ export interface IRepository {
     list(): Promise<Either<Template[] | IDatabaseError>>;
 }
 
-export interface ILogError {
-    (error: Error): void;
-}
-
 export interface ILogger {
-    logError: ILogError;
+    logError: (error: Error) => void
 }
 export interface IEnviroment {
     database: {
