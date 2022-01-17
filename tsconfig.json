@@ -33,7 +33,9 @@
                 "src/entities/contact/*"
             ],
             "@use_cases/*": [
-                "src/application/use_cases/template/*"
+                "src/application/use_cases/template/*",
+                "src/application/use_cases/group/*",
+                "src/application/use_cases/contact/*"
             ],
             "@schema/*": [
                 "src/infrastructure/orm/mongoose/schema/template/*",
