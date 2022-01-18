@@ -8,7 +8,7 @@
         "skipLibCheck": true,
         "rootDirs": [
             "./src",
-            "./test"
+            "/__test__"
         ],
         "outDir": "./dist",
         "lib": [
@@ -48,12 +48,15 @@
             ],
             "@shared/*": [
                 "src/shared/*"
+            ],
+            "@controllers/*": [
+                "src/interfaces/controllers/*"
             ]
         }
     },
     "include": [
         "src/**/*",
-        "test/**/*"
+        "__test__/**/*"
     ],
     "sourceMap": true
 }
