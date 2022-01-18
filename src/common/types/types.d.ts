@@ -1,23 +1,25 @@
-export interface IGroup {
-    id?: string;
-    contacts: string[];
-    groupName: string;
-}
 export interface IContact {
     id?: string;
     address: string;
-    alias: string;
-    personTitle: string;
+    alias?: string;
+    personTitle?: string;
 }
+
+export interface IGroup {
+    id?: string;
+    contacts: IContact[];
+    groupName?: string;
+}
+
 export interface IHeader {
-    bcc: IGroup[];
-    cc: IGroup[];
+    bcc?: IGroup[];
+    cc?: IGroup[];
     to: IGroup[];
 }
 
 export interface IBody {
     content: string;
-    signature: string;
+    signature?: string;
 }
 
 export interface ITemplate {
