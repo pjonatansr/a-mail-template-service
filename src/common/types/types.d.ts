@@ -1,8 +1,10 @@
 export interface IGroup {
+    id?: string;
     contacts: string[];
     groupName: string;
 }
 export interface IContact {
+    id?: string;
     address: string;
     alias: string;
     personTitle: string;
@@ -68,6 +70,10 @@ export type DatabaseErrorType =
     | Either<DatabaseError | Template>[];
 
 export type TemplateOrError = Either<Error, Template>;
+
+export type GroupOrError = Either<Error, Group>;
+
+export type ContactOrError = Either<Error, Contact>;
 
 export interface IErrorMessage {
     error: Error;
