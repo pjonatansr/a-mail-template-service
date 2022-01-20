@@ -1,11 +1,11 @@
-import { Either, IGroup } from '@types';
+import { Either, IContact, IGroup } from '@types';
 
 import { firstLeft, isLeft, Right } from '@shared/either';
 
 import { InvalidGroupError } from './errors/invalid-group';
 
 export class Group implements IGroup {
-    private readonly _contacts: string[];
+    private readonly _contacts: IContact[];
 
     private readonly _groupName: string;
 
@@ -15,7 +15,7 @@ export class Group implements IGroup {
         Object.freeze(this);
     }
 
-    public get contacts(): string[] {
+    public get contacts(): IContact[] {
         return this._contacts;
     }
 
