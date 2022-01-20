@@ -1,9 +1,10 @@
 import { Template } from '@entities/template';
+import { DatabaseError } from '@errors/database-error';
 import {
     DatabaseErrorType, Either, ILogger, IRepository,
 } from '@types';
-import { DatabaseError } from 'src/common/errors/database-error';
-import { Left } from 'src/shared/either';
+
+import { Left } from '@shared/either';
 
 export class TemplateRepository implements IRepository {
     protected readonly logger: ILogger;

@@ -1,5 +1,6 @@
 import { Either, IBody } from '@types';
-import { firstLeft, isLeft, Right } from 'src/shared/either';
+
+import { firstLeft, isLeft, Right } from '@shared/either';
 
 import { InvalidBodyError } from './errors/invalid-body';
 

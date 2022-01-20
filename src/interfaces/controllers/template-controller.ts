@@ -1,8 +1,8 @@
 import { Template } from '@entities/template';
-import CreateTemplate from 'src/application/use_cases/template/create-template';
-import GetTemplate from 'src/application/use_cases/template/get-template';
-import ListTemplates from 'src/application/use_cases/template/list-templates';
-import TemplateRepository from 'src/infrastructure/repositories/template-repository-mongo';
+import TemplateRepository from '@repositories/template-repository-mongo';
+import CreateTemplate from '@use_cases/create-template';
+import GetTemplate from '@use_cases/get-template';
+import ListTemplates from '@use_cases/list-templates';
 
 export class TemplateController {
     private readonly templateRepository: TemplateRepository;

@@ -1,5 +1,6 @@
 import { Either, IContact } from '@types';
-import { firstLeft, isLeft, Right } from 'src/shared/either';
+
+import { firstLeft, isLeft, Right } from '@shared/either';
 
 import { InvalidContactError } from './errors/invalid-contact';
 
@@ -49,8 +50,8 @@ export class Contact implements IContact {
 
     static validate(contact: IContact): Either<InvalidContactError, IContact> {
         const [addressLengthMustBePositive, personTitleLengthMustBePositive] = [
-            ({ address }) => address?.length > 0,
-            ({ personTitle }) => personTitle?.length > 0,
+            ({ address }: IContact) => address?.length > 0,
+            ({ personTitle }: IContact) => personTitle?.length > 0,
         ];
 
         const predicates = [

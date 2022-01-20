@@ -1,6 +1,7 @@
 import { Template } from '@entities/template';
 import { ITemplate, IRepository, TemplateOrError } from '@types';
-import { isLeft } from 'src/shared/either';
+
+import { isLeft } from '@shared/either';
 
 const CreateTemplate = async (
     templateData: ITemplate,

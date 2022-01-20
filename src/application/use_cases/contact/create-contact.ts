@@ -1,6 +1,7 @@
 import { Contact } from '@entities/contact';
 import { IContact, IRepository, ContactOrError } from '@types';
-import { isLeft } from 'src/shared/either';
+
+import { isLeft } from '@shared/either';
 
 const CreateContact = async (
     contactData: IContact,

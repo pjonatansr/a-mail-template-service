@@ -1,5 +1,6 @@
 import { Either, ITemplate, TemplateOrError } from '@types';
-import { firstLeft, isLeft, Right } from 'src/shared/either';
+
+import { firstLeft, isLeft, Right } from '@shared/either';
 
 import { InvalidBodyError } from './errors/invalid-body';
 import { InvalidHeaderError } from './errors/invalid-header';
@@ -64,7 +65,7 @@ export class Template {
     }
 
     static validate(template: ITemplate): Either<InvalidTitleError, ITemplate> {
-        const titleLengthMustBePositive = ({ title }) => title?.length > 0;
+        const titleLengthMustBePositive = ({ title }: ITemplate) => title?.length > 0;
         const predicates = [titleLengthMustBePositive];
 
         const messages = ['You must enter a title.'].map(

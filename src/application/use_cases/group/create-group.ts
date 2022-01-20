@@ -1,6 +1,7 @@
 import { Group } from '@entities/group';
 import { IGroup, IRepository, GroupOrError } from '@types';
-import { isLeft } from 'src/shared/either';
+
+import { isLeft } from '@shared/either';
 
 const CreateGroup = async (
     groupData: IGroup,

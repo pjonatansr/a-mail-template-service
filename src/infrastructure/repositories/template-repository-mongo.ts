@@ -1,8 +1,9 @@
 import { Template } from '@entities/template';
+import TemplateRepository from '@entities/template-repository';
 import MongooseTemplate from '@schema/template';
 import { ITemplate, TemplateOrError } from '@types';
-import TemplateRepository from 'src/entities/template/template-repository';
-import { Right } from 'src/shared/either';
+
+import { Right } from '@shared/either';
 
 export class TemplateRepositoryMongo extends TemplateRepository {
     async persist(template: Template): Promise<TemplateOrError> {

@@ -8,7 +8,7 @@
         "skipLibCheck": true,
         "rootDirs": [
             "./src",
-            "/__test__"
+            "./test"
         ],
         "outDir": "./dist",
         "lib": [
@@ -22,43 +22,43 @@
             "./src/commom/types"
         ],
         "resolveJsonModule": true,
-        "baseUrl": ".",
+        "baseUrl": "src",
         "paths": {
-            "*": [
-                "*"
-            ],
             "@entities/*": [
-                "src/entities/template/*",
-                "src/entities/group/*",
-                "src/entities/contact/*"
+                "entities/template/*",
+                "entities/group/*",
+                "entities/contact/*"
             ],
             "@use_cases/*": [
-                "src/application/use_cases/template/*",
-                "src/application/use_cases/group/*",
-                "src/application/use_cases/contact/*"
+                "application/use_cases/template/*",
+                "application/use_cases/group/*",
+                "application/use_cases/contact/*"
             ],
             "@schema/*": [
-                "src/infrastructure/orm/mongoose/schema/template/*",
-                "src/infrastructure/orm/mongoose/schema/group/*",
-                "src/infrastructure/orm/mongoose/schema/contact/*"
+                "infrastructure/orm/mongoose/schema/template/*",
+                "infrastructure/orm/mongoose/schema/group/*",
+                "infrastructure/orm/mongoose/schema/contact/*"
             ],
             "@types": [
-                "src/common/types/types"
+                "common/types/types"
             ],
-            "@errors": [
-                "src/common/errors"
+            "@errors/*": [
+                "common/errors/*"
             ],
             "@shared/*": [
-                "src/shared/*"
+                "shared/*"
             ],
             "@controllers/*": [
-                "src/interfaces/controllers/*"
+                "interfaces/controllers/*"
+            ],
+            "@repositories/*": [
+                "infrastructure/repositories/*"
             ]
         }
     },
     "include": [
         "src/**/*",
-        "__test__/**/*"
+        "test/**/*"
     ],
     "sourceMap": true
 }
