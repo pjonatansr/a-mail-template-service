@@ -2,7 +2,6 @@
     "name": "a-mail-template-service",
     "version": "0.0.1",
     "description": "A template service that facilitate your emails",
-    "main": "index.js",
     "scripts": {
         "dev": "ts-node-dev -r tsconfig-paths/register -r dotenv/config --inspect --respawn --transpile-only --ignore-watch node_modules --no-notify src/infrastructure/server.ts",
         "test": "jest",
@@ -53,5 +52,9 @@
         "express": "^4.17.2",
         "mongoose": "^6.1.6",
         "serve-favicon": "^2.5.0"
-    }
+    },
+    "moduleDirectories": [
+        "node_modules",
+        "src"
+    ]
 }

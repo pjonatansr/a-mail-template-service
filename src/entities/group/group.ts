@@ -1,10 +1,11 @@
-import { Either, IGroup } from '@types';
-import { firstLeft, isLeft, Right } from 'src/shared/either';
+import { Either, IContact, IGroup } from '@types';
+
+import { firstLeft, isLeft, Right } from '@shared/either';
 
 import { InvalidGroupError } from './errors/invalid-group';
 
 export class Group implements IGroup {
-    private readonly _contacts: string[];
+    private readonly _contacts: IContact[];
 
     private readonly _groupName: string;
 
@@ -14,7 +15,7 @@ export class Group implements IGroup {
         Object.freeze(this);
     }
 
-    public get contacts(): string[] {
+    public get contacts(): IContact[] {
         return this._contacts;
     }
 
@@ -42,14 +43,16 @@ export class Group implements IGroup {
     static validate(group: IGroup): Either<InvalidGroupError, IGroup> {
         const contactsLengthMustBePositive = ({ contacts }: IGroup) => contacts?.length > 0;
 
-        const predicates = [
-            contactsLengthMustBePositive,
-        ];
+        const predicates = [contactsLengthMustBePositive];
 
-        const messages = [
-            'You must enter a contact.',
-        ].map((message: string) => new InvalidGroupError(message));
+        const messages = ['You must enter a contact.'].map(
+            (message: string) => new InvalidGroupError(message),
+        );
 
-        return firstLeft<InvalidGroupError, IGroup>(group, predicates, messages);
+        return firstLeft<InvalidGroupError, IGroup>(
+            group,
+            predicates,
+            messages,
+        );
     }
 }

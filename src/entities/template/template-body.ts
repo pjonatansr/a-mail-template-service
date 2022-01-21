@@ -1,7 +1,6 @@
 import { Either, IBody } from '@types';
-import {
-    firstLeft, isLeft, Right,
-} from 'src/shared/either';
+
+import { firstLeft, isLeft, Right } from '@shared/either';
 
 import { InvalidBodyError } from './errors/invalid-body';
 
@@ -41,15 +40,13 @@ export class Body implements IBody {
     }
 
     static validate(body: IBody): Either<InvalidBodyError, IBody> {
-        const contentLengthMustBePositive = ({ content }: IBody) => content?.length > 0;
+        const contentLengthMustBePositive = ({ content }: IBody) => !!content?.length;
 
-        const predicates = [
-            contentLengthMustBePositive,
-        ];
+        const predicates = [contentLengthMustBePositive];
 
-        const messages = [
-            'You must enter the content.',
-        ].map((message: string) => new InvalidBodyError(message));
+        const messages = ['You must enter the content.'].map(
+            (message: string) => new InvalidBodyError(message),
+        );
 
         return firstLeft<InvalidBodyError, IBody>(body, predicates, messages);
     }

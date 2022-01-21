@@ -1,7 +1,6 @@
 import { Either, IGroup, IHeader } from '@types';
-import {
-    firstLeft, isLeft, Right,
-} from 'src/shared/either';
+
+import { firstLeft, isLeft, Right } from '@shared/either';
 
 import { InvalidHeaderError } from './errors/invalid-header';
 
@@ -19,11 +18,17 @@ export class Header implements IHeader {
         Object.freeze(this);
     }
 
-    public get bcc(): IGroup[] { return this._bcc; }
+    public get bcc(): IGroup[] {
+        return this._bcc;
+    }
 
-    public get cc(): IGroup[] { return this._cc; }
+    public get cc(): IGroup[] {
+        return this._cc;
+    }
 
-    public get to(): IGroup[] { return this._to; }
+    public get to(): IGroup[] {
+        return this._to;
+    }
 
     static create(h: IHeader): Either<InvalidHeaderError, Header> {
         const result = Header.validate(h);
@@ -44,11 +49,9 @@ export class Header implements IHeader {
     }
 
     static validate(h: IHeader): Either<InvalidHeaderError, IHeader> {
-        const toLengthMustBePositive = ({ to }: IHeader) => to?.length > 0;
+        const toLengthMustBePositive = ({ to }: IHeader) => !!to?.length;
 
-        const predicates = [
-            toLengthMustBePositive,
-        ];
+        const predicates = [toLengthMustBePositive];
 
         const messages = [
             'You must enter at least one destination address.',
