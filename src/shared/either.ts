@@ -20,12 +20,20 @@ export function Right<B>(val: B): IRight<B> {
     return { value: val, tag: 'right' };
 }
 
-export function predicateEither<A, B>(value: B, error: A, predicate: Predicate<B>): Either<A, B> {
+export function predicateEither<A, B>(
+    value: B,
+    error: A,
+    predicate: Predicate<B>,
+): Either<A, B> {
     if (!predicate(value)) return Left(error);
     return Right(value);
 }
 
-export function firstLeft<A, B>(val: B, predicates: Predicate<B>[], errors: A[]): Either<A, B> {
+export function firstLeft<A, B>(
+    val: B,
+    predicates: Predicate<B>[],
+    errors: A[],
+): Either<A, B> {
     for (let i = 0; i < predicates.length; i += 1) {
         const p = predicates[i];
         if (!p(val)) return Left(errors[i]);
@@ -33,7 +41,9 @@ export function firstLeft<A, B>(val: B, predicates: Predicate<B>[], errors: A[])
     return Right(val);
 }
 
-export function getInstanceOrError<T>(instanceOrError: Either<Error, T>): IErrorMessage | T {
+export function getInstanceOrError<T>(
+    instanceOrError: Either<Error, T>,
+): IErrorMessage | T {
     if (isLeft(instanceOrError)) {
         const errorMessage: IErrorMessage = {
             error: instanceOrError.value,

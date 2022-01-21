@@ -1,7 +1,5 @@
 import { Template } from '@entities/template';
-import {
-    ITemplate, IRepository, TemplateOrError,
-} from '@types';
+import { ITemplate, IRepository, TemplateOrError } from '@types';
 
 const GetTemplate = async (
     { id }: ITemplate,

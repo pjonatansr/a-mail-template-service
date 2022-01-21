@@ -6,7 +6,10 @@
         "forceConsistentCasingInFileNames": true,
         "strict": false,
         "skipLibCheck": true,
-        "rootDir": "./src",
+        "rootDirs": [
+            "./src",
+            "./test"
+        ],
         "outDir": "./dist",
         "lib": [
             "ES6"
@@ -19,29 +22,37 @@
             "./src/commom/types"
         ],
         "resolveJsonModule": true,
-        "baseUrl": ".",
+        "baseUrl": "src",
         "paths": {
-            "*": [
-                "*",
-            ],
             "@entities/*": [
-                "src/entities/template/*",
-                "src/entities/group/*",
-                "src/entities/contact/*"
+                "entities/template/*",
+                "entities/group/*",
+                "entities/contact/*"
             ],
             "@use_cases/*": [
-                "src/application/use_cases/template/*"
+                "application/use_cases/template/*",
+                "application/use_cases/group/*",
+                "application/use_cases/contact/*"
             ],
             "@schema/*": [
-                "src/infrastructure/orm/mongoose/schema/template/*",
-                "src/infrastructure/orm/mongoose/schema/group/*",
-                "src/infrastructure/orm/mongoose/schema/contact/*"
+                "infrastructure/orm/mongoose/schema/template/*",
+                "infrastructure/orm/mongoose/schema/group/*",
+                "infrastructure/orm/mongoose/schema/contact/*"
             ],
             "@types": [
-                "src/common/types/types"
+                "common/types/types"
             ],
-            "@errors": [
-                "src/common/errors"
+            "@errors/*": [
+                "common/errors/*"
+            ],
+            "@shared/*": [
+                "shared/*"
+            ],
+            "@controllers/*": [
+                "interfaces/controllers/*"
+            ],
+            "@repositories/*": [
+                "infrastructure/repositories/*"
             ]
         }
     },

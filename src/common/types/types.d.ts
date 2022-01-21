@@ -1,46 +1,50 @@
-export interface IGroup {
-    contacts: string[],
-    groupName: string,
-}
 export interface IContact {
-    address: string,
-    alias: string,
-    personTitle: string,
+    id?: string;
+    address: string;
+    alias?: string;
+    personTitle?: string;
 }
+
+export interface IGroup {
+    id?: string;
+    contacts: IContact[];
+    groupName?: string;
+}
+
 export interface IHeader {
-    bcc: IGroup[],
-    cc: IGroup[],
-    to: IGroup[],
+    bcc?: IGroup[];
+    cc?: IGroup[];
+    to: IGroup[];
 }
 
 export interface IBody {
-    content: string,
-    signature: string,
+    content: string;
+    signature?: string;
 }
 
 export interface ITemplate {
-    id?: string,
-    body: IBody,
-    header: IHeader,
-    title: string,
+    id?: string;
+    body: IBody;
+    header: IHeader;
+    title: string;
 }
 export interface IDomainError {
-    message: string
+    message: string;
 }
 
 export interface IDatabaseError {
-    message: string,
-    instance?: Template | string,
+    message: string;
+    instance?: Template | string;
 }
 
 export interface ILeft<A> {
     value: A;
-    tag: 'left'
+    tag: 'left';
 }
 
 export interface IRight<B> {
     value: B;
-    tag: 'right'
+    tag: 'right';
 }
 
 export type Either<A, B> = ILeft<A> | IRight<B>;
@@ -48,17 +52,13 @@ export type Either<A, B> = ILeft<A> | IRight<B>;
 export type Predicate<N> = (val: N) => boolean;
 
 export interface IRepository {
-    persist(template: Template): Promise<Either<Template | IDatabaseError>>
-    get(_id: string): Promise<Either<Template | IDatabaseError>>
-    list(): Promise<Either<Template[] | IDatabaseError>>
-}
-
-export interface ILogError {
-    (error: Error): void
+    persist(template: Template): Promise<Either<Template | IDatabaseError>>;
+    get(_id: string): Promise<Either<Template | IDatabaseError>>;
+    list(): Promise<Either<Template[] | IDatabaseError>>;
 }
 
 export interface ILogger {
-    logError: ILogError
+    logError: (error: Error) => void
 }
 export interface IEnviroment {
     database: {
@@ -68,11 +68,15 @@ export interface IEnviroment {
 }
 
 export type DatabaseErrorType =
-    Either<DatabaseError | Template>
-    | Either<DatabaseError | Template>[]
+    | Either<DatabaseError | Template>
+    | Either<DatabaseError | Template>[];
 
 export type TemplateOrError = Either<Error, Template>;
 
+export type GroupOrError = Either<Error, Group>;
+
+export type ContactOrError = Either<Error, Contact>;
+
 export interface IErrorMessage {
-    error: Error
+    error: Error;
 }

@@ -1,8 +1,6 @@
-import {
-    Either,
-    ITemplate,
-} from '@types';
-import { firstLeft, isLeft, Right } from 'src/shared/either';
+import { Either, ITemplate, TemplateOrError } from '@types';
+
+import { firstLeft, isLeft, Right } from '@shared/either';
 
 import { InvalidBodyError } from './errors/invalid-body';
 import { InvalidHeaderError } from './errors/invalid-header';
@@ -24,9 +22,9 @@ export class Template {
         header,
         title,
     }: {
-        body: Body,
-        header: Header,
-        title: string,
+        body: Body;
+        header: Header;
+        title: string;
     }) {
         this.body = body;
         this.header = header;
@@ -34,47 +32,50 @@ export class Template {
         Object.freeze(this);
     }
 
-    static create(
-        template: ITemplate,
-    ): Either<InvalidBodyError | InvalidHeaderError | InvalidTitleError, Template> {
+    static create(template: ITemplate): TemplateOrError {
         const result = Template.validate(template);
 
         if (isLeft(result)) {
             return result;
         }
 
-        const bodyOrError: Either<InvalidBodyError, Body> = Body.create(template.body);
+        const bodyOrError: Either<InvalidBodyError, Body> = Body.create(
+            template.body,
+        );
 
         if (isLeft(bodyOrError)) {
             return bodyOrError;
         }
 
-        const headerOrError: Either<InvalidHeaderError, Header> = Header.create(template.header);
+        const headerOrError: Either<InvalidHeaderError, Header> = Header.create(
+            template.header,
+        );
 
         if (isLeft(headerOrError)) {
             return headerOrError;
         }
 
-        return Right<Template>(new Template({
-            body: bodyOrError.value,
-            header: headerOrError.value,
-            title: template.title,
-        }));
+        return Right<Template>(
+            new Template({
+                body: bodyOrError.value,
+                header: headerOrError.value,
+                title: template.title,
+            }),
+        );
     }
 
-    static validate(
-        template: ITemplate,
-    ): Either<InvalidTitleError, ITemplate> {
-        const titleLengthMustBePositive = ({ title }: ITemplate) => title?.length > 0;
+    static validate(template: ITemplate): Either<InvalidTitleError, ITemplate> {
+        const titleLengthMustBePositive = ({ title }: ITemplate) => !!title;
+        const predicates = [titleLengthMustBePositive];
 
-        const predicates = [
-            titleLengthMustBePositive,
-        ];
+        const messages = ['You must enter a title.'].map(
+            (message: string) => new InvalidTitleError(message),
+        );
 
-        const messages = [
-            'You must enter a title.',
-        ].map((message: string) => new InvalidTitleError(message));
-
-        return firstLeft<InvalidTitleError, ITemplate>(template, predicates, messages);
+        return firstLeft<InvalidTitleError, ITemplate>(
+            template,
+            predicates,
+            messages,
+        );
     }
 }
