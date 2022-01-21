@@ -24,12 +24,34 @@ describe('Template create', () => {
         expect(template.tag).toBe('left');
     });
 
-    it('Templater.header.to should contains at least one group with one contact', () => {
+    it('header "to" should contains at least one group with one contact', () => {
         const templateModified: ITemplate = {
             ...templateData,
             header: {
                 to: [],
             },
+        };
+
+        const template: TemplateOrError = Template.create(templateModified);
+
+        expect(template.tag).toBe('left');
+    });
+
+    it('title should not be undefined', () => {
+        const templateModified: ITemplate = {
+            ...templateData,
+            title: undefined,
+        };
+
+        const template: TemplateOrError = Template.create(templateModified);
+
+        expect(template.tag).toBe('left');
+    });
+
+    it('title should not be empty', () => {
+        const templateModified: ITemplate = {
+            ...templateData,
+            title: '',
         };
 
         const template: TemplateOrError = Template.create(templateModified);
