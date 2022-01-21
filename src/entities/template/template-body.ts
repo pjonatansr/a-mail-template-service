@@ -40,7 +40,7 @@ export class Body implements IBody {
     }
 
     static validate(body: IBody): Either<InvalidBodyError, IBody> {
-        const contentLengthMustBePositive = ({ content }: IBody) => content?.length > 0;
+        const contentLengthMustBePositive = ({ content }: IBody) => !!content?.length;
 
         const predicates = [contentLengthMustBePositive];
 

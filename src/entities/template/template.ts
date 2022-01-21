@@ -65,7 +65,7 @@ export class Template {
     }
 
     static validate(template: ITemplate): Either<InvalidTitleError, ITemplate> {
-        const titleLengthMustBePositive = ({ title }: ITemplate) => title?.length > 0;
+        const titleLengthMustBePositive = ({ title }: ITemplate) => !!title;
         const predicates = [titleLengthMustBePositive];
 
         const messages = ['You must enter a title.'].map(

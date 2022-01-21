@@ -49,7 +49,7 @@ export class Header implements IHeader {
     }
 
     static validate(h: IHeader): Either<InvalidHeaderError, IHeader> {
-        const toLengthMustBePositive = ({ to }: IHeader) => to?.length > 0;
+        const toLengthMustBePositive = ({ to }: IHeader) => !!to?.length;
 
         const predicates = [toLengthMustBePositive];
 

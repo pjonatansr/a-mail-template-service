@@ -50,8 +50,8 @@ export class Contact implements IContact {
 
     static validate(contact: IContact): Either<InvalidContactError, IContact> {
         const [addressLengthMustBePositive, personTitleLengthMustBePositive] = [
-            ({ address }: IContact) => address?.length > 0,
-            ({ personTitle }: IContact) => personTitle?.length > 0,
+            ({ address }: IContact) => !!address?.length,
+            ({ personTitle }: IContact) => !!personTitle?.length,
         ];
 
         const predicates = [
