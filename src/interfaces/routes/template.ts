@@ -1,5 +1,5 @@
+import TemplateRepositoryMongo from '@repositories/template-repository-mongo';
 import express from 'express';
-import TemplateRepositoryMongo from 'src/infrastructure/repositories/template-repository-mongo';
 
 import { Logger } from '@shared/logger';
 
