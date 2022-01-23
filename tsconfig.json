@@ -53,6 +53,12 @@
             ],
             "@repositories/*": [
                 "infrastructure/repositories/*"
+            ],
+            "@mongoose": [
+                "infrastructure/orm/mongoose/mongoose"
+            ],
+            "@mocks/*": [
+                "entities/template/__mocks__/*"
             ]
         }
     },
