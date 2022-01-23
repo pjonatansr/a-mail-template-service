@@ -1,23 +1,25 @@
 export interface IContact {
-    id?: string;
+    _id?: string;
     address: string;
     alias?: string;
     personTitle?: string;
 }
 
 export interface IGroup {
-    id?: string;
+    _id?: string;
     contacts: IContact[];
     groupName?: string;
 }
 
 export interface IHeader {
+    _id?: string;
     bcc?: IGroup[];
     cc?: IGroup[];
     to: IGroup[];
 }
 
 export interface IBody {
+    _id?: string;
     content: string;
     signature?: string;
 }
@@ -51,10 +53,10 @@ export type Either<A, B> = ILeft<A> | IRight<B>;
 
 export type Predicate<N> = (val: N) => boolean;
 
-export interface IRepository {
-    persist(template: Template): Promise<Either<Template | IDatabaseError>>;
-    get(_id: string): Promise<Either<Template | IDatabaseError>>;
-    list(): Promise<Either<Template[] | IDatabaseError>>;
+export interface IRepository<T> {
+    persist(template: Template): Promise<Either<T | IDatabaseError>>;
+    get(_id: string): Promise<Either<T | IDatabaseError>>;
+    list(): Promise<Either<T[] | IDatabaseError>>;
 }
 
 export interface ILogger {

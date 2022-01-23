@@ -1,11 +1,13 @@
 import { Template } from '@entities/template';
-import { ITemplate, IRepository, TemplateOrError } from '@types';
+import {
+    ITemplate, IRepository, TemplateOrError, Either,
+} from '@types';
 
 import { isLeft } from '@shared/either';
 
 const CreateTemplate = async (
     templateData: ITemplate,
-    repository: IRepository,
+    repository: IRepository<Template>,
 ): Promise<Template | Error> => {
     const templateOrError: TemplateOrError = Template.create(templateData);
 
@@ -13,11 +15,11 @@ const CreateTemplate = async (
         return templateOrError.value;
     }
 
-    const template: Template | Error = await repository.persist(
+    const template: Either<Template, Error> = await repository.persist(
         templateOrError.value,
     );
 
-    return template;
+    return template.value;
 };
 
 export default CreateTemplate;

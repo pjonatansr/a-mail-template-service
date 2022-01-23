@@ -2,8 +2,8 @@ import { Group } from '@entities/group';
 import { IGroup, IRepository, GroupOrError } from '@types';
 
 const GetGroup = async (
-    { id }: IGroup,
-    repository: IRepository,
+    { _id: id }: IGroup,
+    repository: IRepository<Group>,
 ): Promise<Group | Error> => {
     const groupOrError: GroupOrError = await repository.get(id);
 
