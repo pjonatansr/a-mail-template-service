@@ -5,7 +5,7 @@ export class Logger implements ILogger {
 
     constructor() {
         this.logError = (error: Error): void => {
-            console.log(error.message);
+            console.log(error);
         };
     }
 }
