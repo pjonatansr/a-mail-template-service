@@ -6,7 +6,7 @@ import {
 
 import { Left } from '@shared/either';
 
-export class TemplateRepository implements IRepository {
+export class TemplateRepository implements IRepository<Template> {
     protected readonly logger: ILogger;
 
     constructor(logger: ILogger) {
@@ -37,7 +37,7 @@ export class TemplateRepository implements IRepository {
         target?: Template | string;
     }): DatabaseErrorType => Left(
         new DatabaseError(
-            'Method not implemented',
+            'Default datavase error',
             this.getErrorData({
                 method,
                 target,

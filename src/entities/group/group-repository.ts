@@ -6,7 +6,7 @@ import {
 
 import { Left } from '@shared/either';
 
-export class GroupRepository implements IRepository {
+export class GroupRepository implements IRepository<Group> {
     protected readonly logger: ILogger;
 
     constructor(logger: ILogger) {

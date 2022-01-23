@@ -6,7 +6,7 @@ import {
 
 import { Left } from '@shared/either';
 
-export class ContactRepository implements IRepository {
+export class ContactRepository implements IRepository<Contact> {
     protected readonly logger: ILogger;
 
     constructor(logger: ILogger) {
